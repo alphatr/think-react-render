@@ -57,18 +57,20 @@ export default class extends think.middleware.base {
      */
     parse(content) {
         var self = this;
-        var reactRegex = /(<\s*([A-Z][a-zA-Z-]+)\s+([^>]+?)\s*>(.*?)<\s*\/\s*\2\s*>)|(<\s*([A-Z][a-zA-Z-]+)\s+([^>]+?)\s*\/\s*>)/g;
+        var doubleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*>(.*?)<\s*\/\s*\1\s*>/g;
+        var singleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*\/\s*>/g;
 
-        return content.replace(reactRegex, (full, double, dbApp, dbAttr, children, single, sgApp, sgAttr) => {
-            var app = dbApp || sgApp;
-            var attrs = self.attrParse(dbAttr || sgAttr || '');
+        var replaceFn = function (full, app, attrs, children) {
+            attrs = self.attrParse(attrs || '');
 
             if (children) {
                 attrs.children = children;
             }
 
             return self.render({name: app, attrs});
-        });
+        };
+
+        return content.replace(singleRegex, replaceFn).replace(doubleRegex, replaceFn);
     }
 
     /**
