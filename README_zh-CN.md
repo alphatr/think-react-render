@@ -1,7 +1,5 @@
 # think-react-render
 
-react server side rendering for thinkjs 2.x
-
 thinkjs 中间件，使用 thinkjs 来做 React 服务端渲染
 
 ## 安装
@@ -9,6 +7,8 @@ thinkjs 中间件，使用 thinkjs 来做 React 服务端渲染
 ```
 npm install think-react-render
 ```
+
+建议使用 npm.taobao.org 源来安装，详见 [npm.taobao.org](http://npm.taobao.org/)
 
 ## 在 thinkjs 中使用
 
@@ -27,7 +27,7 @@ module.exports = {
 };
 ```
 
-在模板文件中书写 component, 中间件会将首字母大写的标签识别为 component 并进行服务端渲染。
+然后在模板文件中书写 component, 中间件会将首字母大写的标签识别为 component 并进行服务端渲染。
 
 ```
 <!doctype html>
@@ -41,8 +41,9 @@ module.exports = {
 </body>
 </html>
 ```
+这里将会渲染 App 组件，它带有一个 name 的属性。name 的属性值这里沿用 React 的做法，appname 是一个变量名称，如果要使用直接的字符串，请使用 `name={"string"}` 或者 `name="string"` 这种形式。
 
-在 controller 中使用 `this.assign()` 方法将数据传递给模板文件
+在 controller 中使用 `this.assign()` 方法将数据 assign 到模板文件
 
 ```javascript
 var Base = require('./base.js');
@@ -55,6 +56,7 @@ module.exports = think.controller(Base, {
 });
 ```
 
+这里 assign 的 `appname` 将会被用到 上面的 `App` 组件中
 
 在 `view/component` 目录下创建你的 component 文件，例如上面的 `app.jsx`:
 
@@ -98,7 +100,6 @@ module.exports = {
     right_delimiter: '}', // 同上
     lower_name: true // 是否 component 的文件名使用小写
 };
-component 的目录默认为 `view\component`
 ```
 
 ## LICENSE

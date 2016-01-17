@@ -12,14 +12,14 @@ npm install think-react-render
 
 ## How to use in thinkjs
 
-open `bootstrap/middleware.js` file, and add this content as follows for regedit middleware:
+open the middleware configuration file `bootstrap/middleware.js`, and add this content as follows for register middleware:
 
 ```javascript
 var reactRender = require('think-react-render');
 think.middleware('react_render', reactRender);
 ```
 
-edit the hook file `config/hook.js`, edit the configuration properties, it can auto executes.
+edit the hook configuration file `config/hook.js`, edit the configuration properties, it can auto executes in each request and after the view parse.
 
 ```javascript
 module.exports = {
@@ -55,8 +55,7 @@ module.exports = think.controller(Base, {
 });
 ```
 
-
-create your self component files in the `view/component` directory, such as the above `app.jsx`:
+create your self component files in the `view/component` directory, such as the follows `app.jsx`:
 
 ```javascript
 var React = require('react');
