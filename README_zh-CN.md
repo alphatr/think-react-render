@@ -27,7 +27,7 @@ module.exports = {
 };
 ```
 
-然后在模板文件中书写 component, 中间件会将首字母大写的标签识别为 component 并进行服务端渲染。
+然后在模板文件中书写 component, 中间件会将首字母大写的标签识别为 component 并进行服务端渲染。这里仅仅支持 JSX 语法的一小部分，不支持嵌套等，所以这里仅仅作为一个入口，而大部分逻辑写在 jsx 文件中。
 
 ```
 <!doctype html>

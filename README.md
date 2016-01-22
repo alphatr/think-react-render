@@ -29,6 +29,8 @@ module.exports = {
 
 write React component in the view files, the middleware will capitalize the first letter of the tag identified as a React component and rendering in service side.
 
+this is a part of JSX Syntax. doesn't support child component, so you can use it as a entrance.
+
 ```
 <!doctype html>
 <html>

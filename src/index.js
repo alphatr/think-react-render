@@ -5,25 +5,27 @@ import ReactDOMServer from 'react-dom/server';
 import path from 'path';
 
 export default class extends think.middleware.base {
+
     /**
      * 初始化
+     * @param {HTTP} http http object
      * @return {undefined}
      */
     init(http) {
         super.init(http);
-        let defaultConfig = {
+        let defaultOption = {
             jsx: true,
             extension: '.jsx',
-            root_path: 'component',
-            lower_name: true,
-            left_delimiter: '{',
-            right_delimiter: '}'
+            'root_path': 'component',
+            'lower_name': true,
+            'left_delimiter': '{',
+            'right_delimiter': '}'
         };
 
-        this.config = think.extend(defaultConfig, think.config('react_render'));
+        this.option = think.extend(defaultOption, this.config('react_render'));
 
-        if (this.config.jsx) {
-            require('node-jsx').install({extension: this.config.extension})
+        if (this.option.jsx) {
+            require('node-jsx').install({extension: this.option.extension});
         }
     }
 
@@ -33,16 +35,12 @@ export default class extends think.middleware.base {
      * @return {String}           渲染结果
      */
     render(component) {
-        if (component.attrs.children) {
-            component.attrs.children = this.parse(component.attrs.children, );
+        var reactPath = path.join(this.option.root_path, component.name + this.option.extension);
+        if (this.option.lower_name) {
+            reactPath = path.join(this.option.root_path, component.name.toLowerCase() + this.option.extension);
         }
 
-        var reactPath = path.join(this.config.root_path, component.name + this.config.extension);
-        if (this.config.lower_name) {
-            reactPath = path.join(this.config.root_path, component.name.toLowerCase() + this.config.extension);
-        }
-
-        var rootPath = path.resolve(think.config('view.root_path'), reactPath);
+        var rootPath = path.resolve(this.config('view.root_path'), reactPath);
 
         // todo: 判断路径存在
         var app = React.createFactory(require(rootPath));
@@ -60,7 +58,7 @@ export default class extends think.middleware.base {
         var doubleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*>(.*?)<\s*\/\s*\1\s*>/g;
         var singleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*\/\s*>/g;
 
-        var replaceFn = function (full, app, attrs, children) {
+        var replaceFn = function replace(full, app, attrs, children) {
             attrs = self.attrParse(attrs || '');
 
             if (children) {
@@ -70,7 +68,7 @@ export default class extends think.middleware.base {
             return self.render({name: app, attrs});
         };
 
-        return content.replace(singleRegex, replaceFn).replace(doubleRegex, replaceFn);
+        return content.replace(doubleRegex, replaceFn).replace(singleRegex, replaceFn);
     }
 
     /**
@@ -83,19 +81,19 @@ export default class extends think.middleware.base {
         var tVar = this.tVar;
 
         var encodeReg = str => str.replace(/([\*\.\?\+\$\^\[\]\(\)\{\}\|\\\/])/ig, match => '\\' + match);
-        let leftDelimiter = encodeReg(this.config.left_delimiter);
-        let rightDelimiter = encodeReg(this.config.right_delimiter);
+        let leftDelimiter = encodeReg(this.option.left_delimiter);
+        let rightDelimiter = encodeReg(this.option.right_delimiter);
         var delimiterRegex = new RegExp(`(^${leftDelimiter}\s*)|(\s*${rightDelimiter}$)`, 'g');
 
         var getValue = key => {
             if (/(^['"])|(['"]$)/g.test(key)) {
-                return tVar[key.replace(/(^['"])|(['"]$)/g, '')];
+                return key.replace(/(^['"])|(['"]$)/g, '');
             }
 
             var temp = tVar;
-            key.split('.').forEach(item => {temp = temp[item]});
+            key.split('.').forEach(item => temp = temp[item]);
             return temp;
-        }
+        };
 
         attrStr.split(/\s+/g).forEach(attr => {
             var key = attr.split('=')[0].trim();
@@ -110,8 +108,9 @@ export default class extends think.middleware.base {
                 }
             }
 
-            if (!attrObj[key]) {
-                return attrObj[key] = value;
+            if (key && !attrObj[key]) {
+                attrObj[key] = value;
+                return;
             }
 
             // todo: warning
