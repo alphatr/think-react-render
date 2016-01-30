@@ -55,8 +55,8 @@ export default class extends think.middleware.base {
      */
     parse(content) {
         var self = this;
-        var doubleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*>(.*?)<\s*\/\s*\1\s*>/g;
-        var singleRegex = /<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*\/\s*>/g;
+        var doubleRegex = /\s*<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*>(.*?)<\s*\/\s*\1\s*>\s*/g;
+        var singleRegex = /\s*<\s*([A-Z][a-zA-Z-]+)(\s+[^>]+?)?\s*\/\s*>\s*/g;
 
         var replaceFn = function replace(full, app, attrs, children) {
             attrs = self.attrParse(attrs || '');

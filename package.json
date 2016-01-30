@@ -1,7 +1,7 @@
 {
   "name": "think-react-render",
   "description": "react server side rendering for thinkjs 2.x",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {},
   "scripts": {
     "test": "mocha --reporter spec --timeout 5000 --recursive test/",
