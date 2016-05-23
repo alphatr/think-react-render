@@ -2,10 +2,10 @@
 
 react server side rendering for thinkjs 2.x
 
-[![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![NPM version](https://img.shields.io/npm/v/think-react-render.svg?style=flat-square)](https://www.npmjs.com/package/think-react-render)
+[![Build Status](https://img.shields.io/travis/alphatr/think-react-render/master.svg?style=flat-square)](https://travis-ci.org/alphatr/think-react-render)
 
-[中文文档](https://github.com/AlphaTr/think-react-render/blob/master/README_zh-CN.md)
+[中文文档](https://github.com/alphatr/think-react-render/blob/master/README_zh-CN.md)
 
 ## Install
 

@@ -2,6 +2,9 @@
 
 thinkjs 中间件，使用 thinkjs 来做 React 服务端渲染
 
+[![NPM version](https://img.shields.io/npm/v/think-react-render.svg?style=flat-square)](https://www.npmjs.com/package/think-react-render)
+[![Build Status](https://img.shields.io/travis/alphatr/think-react-render/master.svg?style=flat-square)](https://travis-ci.org/alphatr/think-react-render)
+
 ## 安装
 
 ```
