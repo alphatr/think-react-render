@@ -2,6 +2,9 @@
 
 react server side rendering for thinkjs 2.x
 
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+
 [中文文档](https://github.com/AlphaTr/think-react-render/blob/master/README_zh-CN.md)
 
 ## Install
