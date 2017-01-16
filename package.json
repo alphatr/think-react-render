@@ -1,12 +1,12 @@
 {
   "name": "think-react-render",
   "description": "react server side rendering for thinkjs 2.x",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "author": {},
   "scripts": {
     "test": "mocha --reporter spec --timeout 5000 --recursive test/",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -t 5000 --recursive  -R spec test/",
-    "compile": "babel --loose all --optional runtime --stage 0 --modules common src/ --out-dir lib/",
+    "compile": "babel src/ --out-dir lib/",
     "watch-compile": "npm run compile -- --watch",
     "prepublish": "npm run compile",
     "eslint": "eslint src/"
@@ -14,20 +14,23 @@
   "contributors": [],
   "main": "lib/index.js",
   "dependencies": {
-    "babel-runtime": "5.8.25",
-    "node-jsx": "^0.13.3",
-    "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "babel-runtime": "6.20.x",
+    "node-jsx": "0.13.x",
+    "react": "15.4.x",
+    "react-dom": "15.4.x"
   },
   "devDependencies": {
-    "babel": "5.8.23",
-    "babel-eslint": "4.1.3",
-    "chai": "^3.4.1",
-    "coveralls": "^2.11.9",
-    "eslint": "1.8.0",
-    "istanbul": "0.4.0",
-    "jsdom": "^7.2.2",
-    "mocha": "1.20.1",
+    "babel-cli": "6.18.x",
+    "babel-eslint": "7.1.x",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "chai": "3.5.x",
+    "coveralls": "2.11.x",
+    "eslint": "3.13.x",
+    "istanbul": "0.4.x",
+    "jsdom": "9.9.x",
+    "mocha": "3.2.x",
     "thinkjs": "2.x.x"
   },
   "keywords": [
